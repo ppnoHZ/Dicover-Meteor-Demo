@@ -7,4 +7,10 @@ Template.postItem.helpers({
         a.href=this.url;
         return a.hostname;
     }
+});
+Template.postItem.events({
+    'click span': function (e) {
+        console.log(e.currentTarget.innerHTML);
+        e.stopPropagation();//防止冒泡事件产生，备注
+    }
 })
