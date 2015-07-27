@@ -13,4 +13,4 @@ Template.postItem.events({
         console.log(e.currentTarget.innerHTML);
         e.stopPropagation();//防止冒泡事件产生，备注
     }
-})
+});
