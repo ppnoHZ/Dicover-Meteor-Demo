@@ -12,6 +12,15 @@ Template.postItem.helpers({
         //console.log(this.userId);
         return this.userId === Meteor.userId();
         //return true;
+    },
+    upvotedClass: function () {
+        var userId = Meteor.userId();
+        //如果用户登录且没有评论过该帖子
+        if (userId && !_.include(this.upvoters, userId)) {
+            return 'btn-primary upvotable';
+        } else {
+            return 'disabled';
+        }
     }
     //,
     //commentsCount: function () {
@@ -19,8 +28,12 @@ Template.postItem.helpers({
     //}
 });
 Template.postItem.events({
-    'click span': function (e) {
-        console.log(e.currentTarget.innerHTML);
-        e.stopPropagation();//防止冒泡事件产生，备注
+    //'click span': function (e) {
+    //    console.log(e.currentTarget.innerHTML);
+    //    e.stopPropagation();//防止冒泡事件产生，备注
+    //}
+    'click .upvotable': function (e) {
+        e.preventDefault();
+        Meteor.call('upvote', this._id);
     }
 });

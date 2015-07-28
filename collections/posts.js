@@ -100,12 +100,33 @@ Meteor.methods({
             userId: user._id,
             author: user.username,
             submitted: new Date(),
-            commentsCount:0
+            commentsCount: 0,
+            upvoters: [],
+            votes: 0
         });
         var postId = Posts.insert(post);
         return {
             _id: postId
         }
+    },
+    upvote: function (postId) {
+        check(this.userId, String);
+        check(postId, String);
+
+        var post = Posts.findOne(postId);
+        if (!post) {
+            throw new Meteor.Error('invalid', 'post not found');
+        }
+        //判断该用户是否已经投票了。
+        if (_.include(post.upvoters, this.userId)) {
+            throw new Meteor.Error('invalid', '已经投票了');
+        }
+        //$addToSet 将⼀个
+        //item 加⼊集合如果它不存在的话， $inc 只是简单的增加⼀个整型属性。
+        Posts.update(post._id, {
+            $addToSet: {upvoters: this.userId},
+            $inc: {votes: 1}
+        });
     }
 });
 
