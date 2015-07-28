@@ -3,9 +3,15 @@
  */
 Template.postItem.helpers({
     domain: function () {
-        var a=document.createElement('a');
-        a.href=this.url;
+        var a = document.createElement('a');
+        a.href = this.url;
         return a.hostname;
+    },
+    ownPost: function () {
+        //比较文章的所有者是否和当前登录有的Id是否相等。
+        //console.log(this.userId);
+        return this.userId === Meteor.userId();
+        //return true;
     }
 });
 Template.postItem.events({
