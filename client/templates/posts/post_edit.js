@@ -23,7 +23,7 @@ Template.postEdit.events({
             }
         })
     },
-    'click .delete': function (e) {
+   /* 'click .delete': function (e) {
         e.preventDefault();
         if (confirm('是否删除？')) {
             var currentPostId = this._id;
@@ -37,7 +37,7 @@ Template.postEdit.events({
             });
 
         }
-    }
+    }*/
 })
 Template.postEdit.created = function () {
     Session.set('postEditErrors', {});
