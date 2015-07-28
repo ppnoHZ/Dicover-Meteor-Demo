@@ -13,6 +13,10 @@ Template.postItem.helpers({
         return this.userId === Meteor.userId();
         //return true;
     }
+    //,
+    //commentsCount: function () {
+    //    return Comments.find({postId: this._id}).count();
+    //}
 });
 Template.postItem.events({
     'click span': function (e) {
