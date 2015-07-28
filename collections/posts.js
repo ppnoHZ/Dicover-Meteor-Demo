@@ -113,20 +113,29 @@ Meteor.methods({
         check(this.userId, String);
         check(postId, String);
 
-        var post = Posts.findOne(postId);
-        if (!post) {
-            throw new Meteor.Error('invalid', 'post not found');
-        }
-        //判断该用户是否已经投票了。
-        if (_.include(post.upvoters, this.userId)) {
-            throw new Meteor.Error('invalid', '已经投票了');
-        }
-        //$addToSet 将⼀个
-        //item 加⼊集合如果它不存在的话， $inc 只是简单的增加⼀个整型属性。
-        Posts.update(post._id, {
+        /*var post = Posts.findOne(postId);
+         if (!post) {
+         throw new Meteor.Error('invalid', 'post not found');
+         }
+         //判断该用户是否已经投票了。
+         if (_.include(post.upvoters, this.userId)) {
+         throw new Meteor.Error('invalid', '已经投票了');
+         }
+         //$addToSet 将⼀个
+         //item 加⼊集合如果它不存在的话， $inc 只是简单的增加⼀个整型属性。
+         Posts.update(post._id, {
+         $addToSet: {upvoters: this.userId},
+         $inc: {votes: 1}
+         });*/
+
+        //将查询用户是否投票，没有投票则投票的逻辑放到一个方法里。
+        var affected = Posts.update({
+            _id: postId,
+            upvoters: {$ne: this.userId},
+        }, {
             $addToSet: {upvoters: this.userId},
             $inc: {votes: 1}
-        });
+        })
     }
 });
 
