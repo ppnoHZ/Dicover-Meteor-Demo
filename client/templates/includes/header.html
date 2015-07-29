@@ -11,7 +11,7 @@
                 <a class="navbar-brand" href="{{pathFor 'home'}}">Microscope</a>
             </div>
             <div class="collapse navbar-collapse" id="navigation">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
                     <li class="{{activeRouteClass 'home' 'newPosts'}}">
                         <a href="{{pathFor 'newPosts'}}">New</a>
                     </li>
@@ -26,9 +26,9 @@
                             {{> notifications}}
                         </li>
                     {{/if}}
-                    <li class="nav navbar-nav navbar-right">
-                        {{> loginButtons}}
-                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {{> loginButtons}}
                 </ul>
             </div>
         </div>
