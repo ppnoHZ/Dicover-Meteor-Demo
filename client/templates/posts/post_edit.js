@@ -23,7 +23,7 @@ Template.postEdit.events({
             }
         })
     },
-   /* 'click .delete': function (e) {
+    'click .delete': function (e) {
         e.preventDefault();
         if (confirm('是否删除？')) {
             var currentPostId = this._id;
@@ -32,12 +32,12 @@ Template.postEdit.events({
                 if (error) {
                     throwError(error.reason);
                 } else {
-                    Router.go('postsList');
+                    Router.go('home');
                 }
             });
 
         }
-    }*/
+    }
 })
 Template.postEdit.created = function () {
     Session.set('postEditErrors', {});
